@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+
+    <!-- Unidad de persistencia: es el "nombre" que pasas a createEntityManagerFactory(...) -->
+    <persistence-unit name="basededatosMySQL" transaction-type="RESOURCE_LOCAL">
+
+        <!-- Proveedor JPA: Hibernate -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entidades que JPA debe gestionar (sin paquete, solo el nombre de la clase) -->
+        <class>Cliente</class>
+        <class>Pedido</class>
+
+        <properties>
+            <!-- Conexión: los mismos datos que usa JdbcDemo -->
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/basededatos?serverTimezone=Europe/Madrid&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+            <property name="jakarta.persistence.jdbc.user" value="bbdd"/>
+            <property name="jakarta.persistence.jdbc.password" value="bbddadmin"/>
+
+            <!-- Las tablas ya existen (las creó Docker): Hibernate NO debe tocarlas -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+            <!-- Muestra en consola el SQL que genera Hibernate (útil para ver qué hace y para las capturas) -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
